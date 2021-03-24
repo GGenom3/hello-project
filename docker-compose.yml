@@ -1,0 +1,6 @@
+main:
+ container_name: main
+ restart: always
+ image: ggenom3/main
+ ports:
+  - 8888:8888
