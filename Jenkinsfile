@@ -1,10 +1,10 @@
 pipeline {
-    agent any
+  agent { dockerfile true }
 
-    stages {
-        stage('Build') {
-            steps {
-                sh 'sudo docker build -t ggenom3/main . '
+  stages {
+      stage('Build') {
+          steps {
+              sh 'mvn clean compile vertx:package '
             }
         }
     }
