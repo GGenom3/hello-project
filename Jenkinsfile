@@ -15,12 +15,17 @@ node {
             withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhub')]) {
                 sh "docker login -u ggenom3 -p ${dockerhub}"
             }
+            sh 'docker rmi'
             sh 'docker build -t ggenom3/main .'
             sh 'docker push ggenom3/main'
             
-            def docker = 'docker run -p 8888:8888 -d ggenom3/main'
+            def docker = 'docker run -p 8888:8888 -d --name apps ggenom3/main'
             sshagent(['ubntu']) {
-              sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.77.151 ${docker}"
+              sh 'ssh -o StrictHostKeyChecking=no ubuntu@172.31.77.151'
+              sh 'docker stop apps'
+              sh 'docker container rm apps'
+              sh 'docker rmi'
+              sh 'docker run -p 8888:8888 -d --name apps ggenom3/main'
            
             }
     }
