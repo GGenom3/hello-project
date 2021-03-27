@@ -21,11 +21,10 @@ node {
             
             def docker = 'docker run -p 8888:8888 -d --name apps ggenom3/main'
             sshagent(['ubntu']) {
-              sh 'ssh -o StrictHostKeyChecking=no ubuntu@172.31.77.151'
               sh 'ssh -o StrictHostKeyChecking=no ubuntu@172.31.77.151 docker stop apps'
-              sh 'docker container rm apps'
-              sh 'docker rmi ggenom3/main'
-              sh 'docker run -p 8888:8888 -d --name apps ggenom3/main'
+              sh 'ssh -o StrictHostKeyChecking=no ubuntu@172.31.77.151 docker container rm apps'
+              sh 'ssh -o StrictHostKeyChecking=no ubuntu@172.31.77.151 docker rmi ggenom3/main'
+              sh 'ssh -o StrictHostKeyChecking=no ubuntu@172.31.77.151 docker run -p 8888:8888 -d --name apps ggenom3/main'
            
             }
     }
