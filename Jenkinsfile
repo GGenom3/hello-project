@@ -24,7 +24,7 @@ node {
               sh 'ssh -o StrictHostKeyChecking=no ubuntu@172.31.77.151 docker stop apps'
               sh 'ssh -o StrictHostKeyChecking=no ubuntu@172.31.77.151 docker container rm apps'
               sh 'ssh -o StrictHostKeyChecking=no ubuntu@172.31.77.151 docker rmi ggenom3/main'
-              sh 'ssh -o StrictHostKeyChecking=no ubuntu@172.31.77.151 docker run -p 8888:8888 -d --name apps ggenom3/main'
+              sh 'ssh -o StrictHostKeyChecking=no ubuntu@172.31.77.151 docker run -p 8888:8888 -d --name apps --restart always ggenom3/main'
            
             }
     }
